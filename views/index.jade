@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h2= title
+  input(
+    type='button'
+    value='Acquire'
+	class='btn mr20'
+    onclick='AcquireImage()'
+  )
+  input(
+    id='btnLoad'
+    type='button'
+	class='btn mr20'
+    value='Load Image'
+    onclick='btnLoad_onclick()'
+  )
+  input(
+    id='btnUpload'
+    type='button'
+	class='btn'
+    value='Upload Image'
+    onclick='btnUpload_onclick()'
+  )
+  #dwtcontrolContainer
