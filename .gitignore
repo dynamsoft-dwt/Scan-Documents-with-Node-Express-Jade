@@ -1,10 +1,9 @@
 /node_modules
 /UploadedImages
-/public/Resources/DynamicWebTWAIN.cab
-/public/Resources/DynamicWebTWAINActiveX.exe
-/public/Resources/DynamicWebTWAINHTML5Edition.exe
-/public/Resources/DynamicWebTWAINHTML5MACTrialEdition.pkg
-/public/Resources/DynamicWebTWAINMacEdition.pkg
-/public/Resources/DynamicWebTWAINPlugIn.msi
-/public/Resources/DynamicWebTWAINx64.cab
+/public/Resources/MSI/
+/public/Resources/addon/*.zip
+/public/Resources/*.cab
+/public/Resources/*.exe
+/public/Resources/*.pkg
+/public/Resources/*.msi
 /public/Resources/dynamsoft.webtwain.initiate.js
