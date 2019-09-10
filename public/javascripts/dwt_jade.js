@@ -1,29 +1,52 @@
-Dynamsoft.WebTwainEnv.RegisterEvent('OnWebTwainReady', Dynamsoft_OnReady);
 var DWObject;
+
+window.onload = function () {
+	Dynamsoft.WebTwainEnv.AutoLoad = false;
+	Dynamsoft.WebTwainEnv.Containers = [{ ContainerId: 'dwtcontrolContainer', Width: '100%', Height: '500px' }];
+	Dynamsoft.WebTwainEnv.RegisterEvent('OnWebTwainReady', Dynamsoft_OnReady);
+    /**
+     * In order to use the full version, do the following
+     * 1. Change Dynamsoft.WebTwainEnv.Trial to false
+     * 2. Replace A-Valid-Product-Key with a full version key
+     * 3. Change Dynamsoft.WebTwainEnv.ResourcesPath to point to the full version 
+     *    resource files that you obtain after purchasing a key
+     */
+	Dynamsoft.WebTwainEnv.Trial = true;
+	//Dynamsoft.WebTwainEnv.ProductKey = "A-Valid-Product-Key";
+	//Dynamsoft.WebTwainEnv.ResourcesPath = "https://tst.dynamsoft.com/libs/dwt/15.0";
+
+	Dynamsoft.WebTwainEnv.Load();
+};
+
 function Dynamsoft_OnReady() {
 	DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
 }
 
-function btnLoad_onclick() {
-	var OnSuccess = function() {};
-	var OnFailure = function(errorCode, errorString) {};
-	DWObject.IfShowFileDialog = true;
-	DWObject.LoadImageEx("", EnumDWT_ImageType.IT_ALL, OnSuccess, OnFailure);
-}
-
 function AcquireImage() {
 	if (DWObject) {
-		var bSelected = DWObject.SelectSource();
-		if (bSelected) {
+		DWObject.SelectSource(function () {
 			var OnAcquireImageSuccess, OnAcquireImageFailure;
 			OnAcquireImageSuccess = OnAcquireImageFailure = function () {
 				DWObject.CloseSource();
 			};
-
 			DWObject.OpenSource();
-			DWObject.IfDisableSourceAfterAcquire = true;  //Scanner source will be disabled/closed automatically after the scan.
+			DWObject.IfDisableSourceAfterAcquire = true;
 			DWObject.AcquireImage(OnAcquireImageSuccess, OnAcquireImageFailure);
-		}
+		}, function () {
+			console.log('SelectSource failed!');
+		});
+	}
+}
+
+function LoadImages() {
+	if (DWObject) {
+		DWObject.LoadImageEx('', 5,
+			function () {
+			},
+			function (errorCode, errorString) {
+				alert('Load Image:' + errorString);
+			}
+		);
 	}
 }
 
@@ -37,9 +60,9 @@ function btnUpload_onclick() {
 	var CurrentPathName = unescape(location.pathname); // get current PathName in plain ASCII
 	var CurrentPath = CurrentPathName.substring(0, CurrentPathName.lastIndexOf("/") + 1);
 	var strActionPage = CurrentPath + "upload";
-	var sFun = function(){
-		console.log('success');
-	}, fFun = function(errorCode, errorString, sHttpResponse){
+	var sFun = function () {
+		console.log('Upload an image successfully!');
+	}, fFun = function (errorCode, errorString, sHttpResponse) {
 		console.log(errorCode);
 	};
 	var Digital = new Date();

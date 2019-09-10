@@ -1,11 +1,1 @@
 /node_modules
-/UploadedImages
-/public/Resources/MSI/
-/public/Resources/addon/*.zip
-/public/Resources/*.cab
-/public/Resources/*.exe
-/public/Resources/*.pkg
-/public/Resources/*.msi
-/public/Resources/*.deb
-/public/Resources/*.rpm
-/public/Resources/dynamsoft.webtwain.initiate.js
